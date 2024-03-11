@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VNTD 24.3 calculator</title>
+  <style>
+    * {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 16px;
+    }
+
+    body {
+      padding: 2rem;
+    }
+
+    h1 {
+      text-transform: uppercase;
+    }
+
+    form {
+      padding-bottom: 1rem;
+    }
+
+    fieldset {
+      border: 0 none;
+      padding: .25rem;
+      margin: 0;
+    }
+
+    fieldset span {
+      width: 5rem;
+      display: inline-block;
+    }
+
+    form .label {
+      color: rgb(185, 182, 182);
+    }
+
+    input {
+      width: 3rem;
+      padding: 0.5rem 0.5rem;
+      border-radius: 5px;
+      border-color: rgb(185, 182, 182);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>24.3 time calculator</h1>
+  <form id="timeForm" action="/index.html">
+    <div class="label"><span>min</span> : <span>sec</span></div>
+    <div class="round">
+      <fieldset> <span>Round 1:</span>
+        <input class="min" id="min1" min="0" max="3" type="number" placeholder="min"> :
+        <input class="sec" min="0" max="59" id="sec1" type="number" placeholder="sec">
+      </fieldset>
+    </div>
+    <div class="round">
+      <fieldset> <span>Round 2:</span>
+        <input class="min" id="min2" min="0" max="3" type="number" placeholder="min"> :
+        <input class="sec" min="0" max="59" id="sec2" type="number" placeholder="sec">
+      </fieldset>
+    </div>
+    <div class="round">
+      <fieldset> <span>Round 3:</span>
+        <input class="min" id="min3" min="0" max="3" type="number" placeholder="min"> :
+        <input class="sec" min="0" max="59" id="sec3" type="number" placeholder="sec">
+      </fieldset>
+    </div>
+    <div class="round">
+      <fieldset> <span>Round 4:</span>
+        <input class="min" id="min4" min="0" max="3" type="number" placeholder="min"> :
+        <input class="sec" min="0" max="59" id="sec4" type="number" placeholder="sec">
+      </fieldset>
+    </div>
+  </form>
+  <div>Total: <span id="total"></span></div>
+
+</body>
+<script>
+  const timeForm = document.getElementById("timeForm");
+  const rounds = timeForm.querySelectorAll(".round")
+  timeForm.addEventListener("change", function () {
+    let seconds = 0;
+    rounds.forEach(round => {
+      const min = round.querySelector('.min');
+      const sec = round.querySelector('.sec');
+      let roundTotal = 0;
+      if (!isNaN(min.value)) {
+        roundTotal += Number(min.value) * 60;
+      }
+      if (!isNaN(sec.value)) {
+        roundTotal += Number(sec.value);
+      }
+      seconds += roundTotal;
+    })
+
+    const totalMin = Math.floor(seconds / 60);
+    const totalSec = seconds % 60;
+    total.innerHTML = `${totalMin} min ${totalSec} sec`;
+  });
+  const total = document.getElementById("total");
+  total.innerText = "N/A"
+</script>
+
+</html>
