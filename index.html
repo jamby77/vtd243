@@ -21,6 +21,7 @@
 
     form {
       padding-bottom: 1rem;
+      max-width: 250px;
     }
 
     fieldset {
@@ -43,6 +44,15 @@
       padding: 0.5rem 0.5rem;
       border-radius: 5px;
       border-color: rgb(185, 182, 182);
+    }
+
+    .action {
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .action button {
+      padding: 0.5rem 0.5rem;
     }
   </style>
 </head>
@@ -75,14 +85,21 @@
         <input class="sec" min="0" max="59" id="sec4" type="number" placeholder="sec">
       </fieldset>
     </div>
+    <div class="action">
+      <button id="calculateTotal" type="button">TOTAL</button>
+    </div>
   </form>
   <div>Total: <span id="total"></span></div>
 
 </body>
 <script>
   const timeForm = document.getElementById("timeForm");
+  const buttonTotal = document.getElementById("calculateTotal");
   const rounds = timeForm.querySelectorAll(".round")
-  timeForm.addEventListener("change", function () {
+
+  function calculateTotal(e) {
+    e.preventDefault();
+    e.stopPropagation();
     let seconds = 0;
     rounds.forEach(round => {
       const min = round.querySelector('.min');
@@ -100,7 +117,10 @@
     const totalMin = Math.floor(seconds / 60);
     const totalSec = seconds % 60;
     total.innerHTML = `${totalMin} min ${totalSec} sec`;
-  });
+  }
+  timeForm.addEventListener("change", calculateTotal);
+  timeForm.addEventListener("submit", calculateTotal);
+  buttonTotal.addEventListener("click", calculateTotal);
   const total = document.getElementById("total");
   total.innerText = "N/A"
 </script>
